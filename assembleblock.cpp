@@ -147,6 +147,8 @@ void assemblefile(const char * filename, bool toplevel);
 extern const char * thisfilename;
 extern int thisline;
 
+extern const char * libdir;
+
 const char * createuserfunc(const char * name, const char * arguments, const char * content);
 
 bool commandlineflag(const char * cmd, const char * val);
@@ -1220,7 +1222,7 @@ void assembleblock(const char * block)
 		repeatnext=rep;
 	}
 #ifdef SANDBOX
-	else if (is("incsrc") || is("incbin") || is("table"))
+	else if (is("incsrc") || is("incbin") || is("table") || is("incdir") || is("import"))
 	{
 		error(0, "This command is disabled.");
 	}
@@ -1247,6 +1249,17 @@ void assembleblock(const char * block)
 		}
 		if (emulatexkas) name=dequote(par);
 		else name=S dir(thisfilename)+dequote(par);
+		assemblefile(name, false);
+	}
+    else if (is1("incdir"))
+    {
+        warn0("incdir not yet implemented"); // TODO implement this at all
+    }
+    else if (is1("import")) // import from search directory
+	{
+		checkbankcross();
+		string name;
+		name=S dir(libdir)+dequote(par); // that should hopefully do things
 		assemblefile(name, false);
 	}
 	else if (is1("incbin") || is3("incbin"))

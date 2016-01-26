@@ -38,6 +38,8 @@ const char * thisfilename;
 int thisline;
 const char * thisblock;
 
+const char * libdir;
+
 const char * callerfilename=NULL;
 int callerline=-1;
 

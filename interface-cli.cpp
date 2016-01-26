@@ -74,6 +74,8 @@ extern const char * thisfilename;
 extern int thisline;
 extern const char * thisblock;
 
+extern const char * libdir;
+
 void print(const char * str)
 {
 	puts(str);
@@ -179,6 +181,7 @@ int main(int argc, char * argv[])
 			" -verbose\n"
 			" -v or -version\n"
 			" -werror\n"
+            " -libdir <path>\n"
 			);
 		bool ignoreerrors=false;
 		string par;
@@ -202,16 +205,25 @@ int main(int argc, char * argv[])
 				else if (par=="-pause=yes") pause=pause_yes;
 				else libcon_badusage();
 			}
+            else if (par=="-libdir")
+            {
+                libdir = libcon_option().c_str();
+            }
 			else libcon_badusage();
 		}
 		if (verbose)
 		{
 			puts(version);
 		}
-		string asmname=libcon_require_filename("Enter patch name:");
+        string asmname=libcon_require_filename("Enter patch name:");
 		string romname=libcon_optional_filename("Enter ROM name:", NULL);
 		//char * outname=libcon_optional_filename("Enter output ROM name:", NULL);
 		libcon_end();
+        if (!libdir)
+        {
+            // default to ./lib/ from caller's working directory (hopefully)
+            libdir = "./lib/";
+        }
 		if (!strchr(asmname, '.') && !file_exists(asmname)) asmname+=".asm";
 		if (!romname)
 		{
