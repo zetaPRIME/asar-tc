@@ -207,7 +207,7 @@ int main(int argc, char * argv[])
 			}
             else if (par=="-libdir")
             {
-                libdir = libcon_option().c_str();
+                libdir = libcon_option();
             }
 			else libcon_badusage();
 		}

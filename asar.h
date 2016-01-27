@@ -6,9 +6,23 @@
 #error Please use -Dstricmp=strcasecmp on Unix-like systems.
 #endif
 
+#if defined(_MSC_VER) || defined(fixgw)
+//not #if defined(_WIN32) || defined(_WIN64) because we have strncasecmp in mingw
+//#define strncasecmp _strnicmp
+//#define strcasecmp _stricmp
+
+#ifdef __STRICT_ANSI__
+#undef __STRICT_ANSI__
+#endif
+
+#endif
+
 #pragma once
 #define Asar
 
+#include <stdio.h> // v
+#include <string.h> // putting this here to fix?? things
+#include <strings.h> // ^
 #include "autoarray.h"
 #include "scapegoat.hpp"
 #include "libstr.h"
