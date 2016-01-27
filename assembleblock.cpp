@@ -147,6 +147,7 @@ void assemblefile(const char * filename, bool toplevel);
 extern const char * thisfilename;
 extern int thisline;
 
+extern const char * thisromname;
 extern const char * libdir;
 
 const char * createuserfunc(const char * name, const char * arguments, const char * content);
@@ -1259,7 +1260,9 @@ void assembleblock(const char * block)
 	{
 		checkbankcross();
 		string name;
-		name=S dir(libdir)+dequote(par); // that should hopefully do things
+        name=S dir(dirname(strdup(thisromname)));
+        if (name[0]) name=S name+'/';
+		name=S name+dir(libdir)+dequote(par); // that should hopefully do things
 		assemblefile(name, false);
 	}
 	else if (is1("incbin") || is3("incbin"))

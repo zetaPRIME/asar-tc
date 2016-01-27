@@ -74,6 +74,7 @@ extern const char * thisfilename;
 extern int thisline;
 extern const char * thisblock;
 
+extern const char * thisromname;
 extern const char * libdir;
 
 void print(const char * str)
@@ -239,6 +240,8 @@ int main(int argc, char * argv[])
 			if (file_exists(S romname+".sfc")) romname+=".sfc";
 			else if (file_exists(S romname+".smc")) romname+=".smc";
 		}
+        // stuff
+        thisromname = romname;
 		if (!file_exists(romname))
 		{
 			FILE * f=fopen(romname, "wb");

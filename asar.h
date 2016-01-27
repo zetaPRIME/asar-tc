@@ -20,9 +20,7 @@
 #pragma once
 #define Asar
 
-#include <stdio.h> // v
-#include <string.h> // putting this here to fix?? things
-#include <strings.h> // ^
+#include <libgen.h>
 #include "autoarray.h"
 #include "scapegoat.hpp"
 #include "libstr.h"
