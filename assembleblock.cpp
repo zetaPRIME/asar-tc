@@ -3,7 +3,8 @@
 #include "libsmw.h"
 #include "scapegoat.hpp"
 #include "autoarray.h"
-//#include <stdio.h>
+
+#include <fstream>
 
 int arch=arch_65816;
 
@@ -1269,8 +1270,9 @@ void assembleblock(const char * block)
 		checkbankcross();
 		string name;
         name=S dir(dirname(strdup(thisromname)));
-        if (name[0]) name=S name+'/';
+        if (name[0]) name = S name + '/';
 		name=S name+dir(libdir)+dequote(par); // that should hopefully do things
+        if (!std::ifstream(name)) name = S name + ".asm"; // if file doesn't exist, assume omitted .asm
 		assemblefile(name, false);
 	}
 	else if (is1("incbin") || is3("incbin"))
