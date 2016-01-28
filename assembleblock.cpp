@@ -648,7 +648,15 @@ void assembleblock(const char * block)
 #define is4(test) (!stricmp(word[0], test) && numwords==5)
 #define is5(test) (!stricmp(word[0], test) && numwords==6)
 #define par word[1]
-	if (is("if") || is("elseif") || is("assert"))
+    if (is1("assertdef"))
+    {
+        string def = S par;
+        string blah;
+        if (!defines.find(def, blah)) {
+            defines.insert(def, S "0");
+        }
+    }
+	else if (is("if") || is("elseif") || is("assert"))
 	{
 		if (emulatexkas) warn0("Convert the patch to native Asar format instead of making an Asar-only xkas patch.");
 		const char * errmsg=NULL;

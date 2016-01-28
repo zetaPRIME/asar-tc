@@ -35,6 +35,7 @@ bool confirmname(const char * name);
 bool foundlabel;
 bool forwardlabel;
 
+extern lightweight_map<string, string> defines;
 
 struct funcdat {
 	autoptr<char*> name;
@@ -183,6 +184,14 @@ extern unsigned int table[256];
 
 static long double getnumcore()
 {
+    if (*str=='!') // defines.
+    {
+        string find;
+        if (defines.find(str+1, find)) {
+            str = find;
+            return getnumcore(); // reiterate on define contents
+        }
+    }
 	if (*str=='(')
 	{
 		str++;
