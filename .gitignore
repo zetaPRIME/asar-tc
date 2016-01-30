@@ -25,6 +25,10 @@
 # Windows compiled resources
 *.res
 
+# Test outputs
+*.smc
+*.sfc
+
 # Executables
 *.exe
 *.out
