@@ -184,15 +184,15 @@ extern unsigned int table[256];
 
 static long double getnumcore()
 {
-    if (*str=='!') // defines.
+    /*if (*str=='!' && false) // defines.
     {
         string find;
         if (defines.find(str+1, find)) {
             str = find;
             return getnumcore(); // reiterate on define contents
         }
-    }
-	if (*str=='(')
+    }*/
+    if (*str=='(')
 	{
 		str++;
 		long double rval=eval(0);

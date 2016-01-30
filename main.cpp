@@ -462,7 +462,9 @@ void assembleline(const char * fname, int linenum, const char * line)
 		clean(tmp);
 		string out;
 		if (numif==numtrue) resolvedefines(out, tmp);
+        else if (stribegin(tmp, "elseif ")) resolvedefines(out, tmp); // force it here
 		else out=tmp;
+        //warn0(out); // dbg
 		out.qreplace(": :", ":  :", true);
 //puts(out);
 		autoptr<char**> blocks=qsplit(out.str, " : ");
