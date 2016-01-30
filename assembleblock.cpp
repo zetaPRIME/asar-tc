@@ -651,10 +651,24 @@ void assembleblock(const char * block)
 #define par word[1]
     if (is1("assertdef"))
     {
-        string def = S par;
-        string blah;
-        if (!defines.find(def, blah)) {
+        string def;
+        if (*par=='!') def = S par+1;
+        else def = S par;
+        
+        string out;
+        if (!defines.find(def, out)) {
             defines.insert(def, S "0");
+        }
+    }
+    else if (is1("undef"))
+    {
+        string def;
+        if (*par=='!') def = S par+1;
+        else def = S par;
+        
+        string out;
+        if (defines.find(def, out)) {
+            defines.remove(def);
         }
     }
 	else if (is("if") || is("elseif") || is("assert"))
