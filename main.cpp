@@ -162,6 +162,15 @@ static int getlenforlabel(int snespos, int thislabel, bool exists)
 		else if ((thislabel>>16)==optimizeforbank) return 2;
 		else return 3;
 	}
+    // ram label shrink; patch contributed by p4plus2
+    else if((thislabel >> 16) == 0x7E && (thislabel & 0xFFFF) < 0x100)
+	{
+		return 1;
+	}
+	else if((thislabel >> 16) == 0x7E && (thislabel & 0xFFFF) < 0x2000)
+	{
+		return 2;
+	}
 	else if ((thislabel|snespos)&0xFF000000)
 	{
 		if ((thislabel^snespos)&0xFF000000) return 3;
